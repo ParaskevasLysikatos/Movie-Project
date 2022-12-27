@@ -1,0 +1,61 @@
+<div class="container  justify-content-center">
+<br>
+  <h3>View collection details</h3>
+
+  <div class="row">
+    <div class="col-4">
+      <h6>Title: {{collectionResult.title}}</h6>
+    </div>
+
+    <div class="col-4">
+      <h6>Description:</h6>
+      <p>{{collectionResult.description}}</p>
+    </div>
+  </div>
+
+  <h6>Movies</h6>
+
+  <div class="row mt-5" *ngIf="savedMovies">
+    <div
+      class="col-lg-4"
+      *ngFor="
+        let s of savedMovies
+          | slice
+            : paginator.pageIndex * paginator.pageSize
+            : (paginator.pageIndex + 1) * paginator.pageSize
+      "
+    >
+      <div class="row">
+        <div class="col-lg-3 mt-4 mb-4" *ngIf="s.poster_path">
+          <img
+            src="https://image.tmdb.org/t/p/original/{{ s.poster_path }}"
+            (click)="goToNewTab(s.id)"
+          />
+        </div>
+        <div class="col-lg-9 mt-4 mb-4">
+          <h5 style="cursor: pointer" (click)="goToNewTab(s.id)">
+            {{ s.title }}
+          </h5>
+          <br />
+          <h5 style="cursor: pointer" (click)="goToNewTab(s.id)">
+            {{ s.vote_average }}
+          </h5>
+          <br />
+          <button type="button" class="btn btn-danger" (click)="removeMovie(s)">Remove</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <mat-paginator
+    #paginator
+    [length]="length"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[5, 10, 20, 40]"
+    (page)="pageEvent = $event"
+  >
+  </mat-paginator>
+
+
+
+</div>

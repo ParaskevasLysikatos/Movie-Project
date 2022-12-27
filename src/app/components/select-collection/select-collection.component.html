@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Add Movie to a collection</h2>
+
+<div mat-dialog-content>
+
+<mat-form-field class="m-2" style="width:50%;" appearance="fill">
+  <mat-label>Select an option</mat-label>
+  <mat-select #select>
+    <ng-container *ngFor="let option of cleanCollections">
+      <mat-option [value]="option.key">{{option.title}}</mat-option>
+    </ng-container>
+  </mat-select>
+</mat-form-field>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancelUserDialog()">Cancel</button>
+  <button mat-button [mat-dialog-close]="{key:select.value,movie:data}" cdkFocusInitial>Ok</button>
+</div>
