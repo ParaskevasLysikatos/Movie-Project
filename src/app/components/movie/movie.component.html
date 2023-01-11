@@ -1,5 +1,5 @@
 <div class="contain mt-5" *ngIf="getMovieDetailResult; else NoData">
-  <div class="row p-5">
+  <div class="row p-4">
     <div class="col-lg-2">
       <img
         alt=""
@@ -11,6 +11,26 @@
     <div class="col-lg-10 mt-5 p-4">
       <h1 class="mt-2 mb-2">Title: {{ getMovieDetailResult.title }}</h1>
       <p class="mt-3 mb-3">Overview: {{ getMovieDetailResult.overview }}</p>
+
+<div class="col-lg-10 p-3">
+    <form [formGroup]="rateForm" (ngSubmit)="submitForm()">
+      <mat-slider
+        showTickMarks
+        discrete
+        formControlName="rating"
+        [min]="0.5"
+        [max]="10"
+        [step]="0.5"
+
+      >
+        <input #sliderInput [value]="5" matSliderThumb />
+      </mat-slider>
+      <button type="submit" class="btn btn-success">Rate</button>
+      <span>&nbsp;&nbsp;&nbsp;&nbsp;{{rateStatus}}</span>
+      <p>{{ sliderInput.value }}</p>
+      <br>
+    </form>
+  </div>
     </div>
 
     <div class="col-lg-10 mt-3 p-3">
@@ -28,25 +48,7 @@
       <p class="mt-3 mb-3">Spoken languages: {{ spoken_languages }}</p>
     </div>
   </div>
-
-  <div class="col-lg-10 mt-3 p-3">
-    <form [formGroup]="rateForm" (ngSubmit)="submitForm()">
-      <mat-slider
-        #slider
-        showTickMarks
-        discrete
-        formControlName="rating"
-        [min]="0.5"
-        [max]="10"
-        [step]="0.5"
-      >
-        <input matSliderThumb />
-      </mat-slider>
-      <button type="submit" class="btn btn-success">Rate</button>
-      <span>&nbsp;&nbsp;&nbsp;&nbsp;{{rateStatus}}</span>
-      <p>{{ slider.value }}</p>
-    </form>
-  </div>
 </div>
+
 
 <ng-template #NoData> No movie found. </ng-template>

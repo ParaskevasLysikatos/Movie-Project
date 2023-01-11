@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatSlider } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Guest } from 'src/app/interfaces/movies.interface';
 import { MovieService } from 'src/app/services/movie.service';
@@ -22,8 +21,8 @@ guest!:Guest;
 
 rateStatus: string="Rate this movie!";
 
-@ViewChild('slider')
-  slider!: MatSlider;
+@ViewChild('sliderInput')
+  slider!: HTMLInputElement;
 
   ngOnInit(): void {
     let getParamId = this.router.snapshot.paramMap.get('id');
@@ -53,7 +52,7 @@ rateForm = new FormGroup({
   submitForm()
   {
       console.log(this.rateForm.value,'rateform#');
-    this.movieSrv.postMovieRating(this.slider.value ?? 5, Number(this.router.snapshot.paramMap.get('id')), this.guest.guest_session_id)
+    this.movieSrv.postMovieRating(this.rateForm.controls.rating.value ?? 5, Number(this.router.snapshot.paramMap.get('id')), this.guest.guest_session_id)
     .subscribe((res) => {
       console.log(res,'getMovieRating');
       this.rateStatus='You rated this movie. Thank you!'

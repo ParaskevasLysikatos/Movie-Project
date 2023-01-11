@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { Movie } from 'src/app/interfaces/movies.interface';
@@ -59,7 +59,7 @@ export class HomeComponent implements OnInit {
   myTempDialog: any;
 
   openAddDialog(movie:Movie) {
-   this.myTempDialog = this.dialog.open(SelectCollectionComponent, { data: movie, width: '250px', height: '250px', autoFocus: true});
+   this.myTempDialog = this.dialog.open(SelectCollectionComponent, { data: movie, width: '450px', height: '450px', autoFocus: true});
     this.myTempDialog.afterClosed().subscribe((res:any) => {
       this.collectionSrv.addMovieListCollection(res.key, res.movie);
       console.log('The Info dialog was closed.');

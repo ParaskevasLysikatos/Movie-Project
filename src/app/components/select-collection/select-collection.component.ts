@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { MatSelect } from '@angular/material';
+import { MatSelect } from '@angular/material/select';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Movie } from 'src/app/interfaces/movies.interface';
 import { MovieColectionService } from './../../services/movie-colection.service';

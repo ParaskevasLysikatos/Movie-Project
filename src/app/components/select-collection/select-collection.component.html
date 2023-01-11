@@ -14,5 +14,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onCancelUserDialog()">Cancel</button>
-  <button mat-button [mat-dialog-close]="{key:select.value,movie:data}" cdkFocusInitial>Ok</button>
+  <button mat-button [disabled]="!select.value" [mat-dialog-close]="{key:select.value,movie:data}">Ok</button>
 </div>
