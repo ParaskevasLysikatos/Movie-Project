@@ -17,6 +17,24 @@ a:hover {
   background-color: #E50914;
 }
 
-mat-slider {
-  width: 25%;
+// mat-slider {
+//   width: 25%;
+// }
+
+
+.rating-list li {
+  float: right;
+  color: #ddd;
+  padding: 10px 5px;
+
+}
+
+.rating-list li:hover,
+.rating-list li:hover ~ li, .rating-list li.selected {
+  color: #ffd700;
+}
+
+.rating-list {
+  display: inline-block;
+  list-style: none;
 }
