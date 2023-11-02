@@ -18,5 +18,31 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+         \App\Models\Movie::create([
+            'name' => 'movie 1',
+        ]);
+
+        \App\Models\Movie::create([
+            'name' => 'movie 2',
+        ]);
+
+        \App\Models\Movie::create([
+            'name' => 'movie 3',
+        ]);
+
+        \App\Models\Movie::create([
+            'name' => 'movie 4',
+        ]);
+
+        \App\Models\MovieCollection::create([
+            'title' => 'collection 1',
+        ]);
+
+
+        \App\Models\MovieCollection::create([
+            'title' => 'collection 2',
+        ]);
+
     }
 }
