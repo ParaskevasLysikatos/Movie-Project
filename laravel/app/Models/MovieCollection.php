@@ -11,7 +11,7 @@ class MovieCollection extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title'];
+    protected $fillable = ['title', 'description'];
 
      /**
      * The movies that belong to the collection.

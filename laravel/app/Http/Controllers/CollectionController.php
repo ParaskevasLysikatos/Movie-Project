@@ -63,6 +63,8 @@ class CollectionController extends Controller
           'movie_id' =>'required',
         ]);
 
+        
+
         $check=DB::table('movie_pivot_collections')->
         where('collection_id', $request->input('collection_id'))->
         where('movie_id', $request->input('movie_id'))->doesntExist();

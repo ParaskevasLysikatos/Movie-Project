@@ -13,10 +13,21 @@ return new class extends Migration
     {
         Schema::create('movies', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->timestamps();
+            $table->string('title');
+
+            $table->string('poster_path');
+            $table->float('vote_average', 8, 2);
+
+            $table->string('overview');
+            $table->string('budget');
+
+            $table->string('release_date');
+            $table->string('revenue');
+
+            $table->integer('vote_count');
         });
     }
+
 
     /**
      * Reverse the migrations.

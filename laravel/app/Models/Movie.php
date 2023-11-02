@@ -10,7 +10,7 @@ class Movie extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['id','title','poster_path','vote_average','overview','budget','release_date','revenue','vote_count'];
 
    /**
      * The colletions that have movies.

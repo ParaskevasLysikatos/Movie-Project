@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('movie_collections', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->timestamps();
+            $table->string('description');
         });
     }
 
