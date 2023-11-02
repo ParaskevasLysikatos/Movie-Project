@@ -5,8 +5,10 @@
 <mat-form-field class="m-2" style="width:50%;" appearance="fill">
   <mat-label>Select an option</mat-label>
   <mat-select #select>
-    <ng-container *ngFor="let option of cleanCollections">
-      <mat-option [value]="option.key">{{option.title}}</mat-option>
+    <!-- <ng-container *ngFor="let option of cleanCollections"> -->
+      <ng-container *ngFor="let option of collections">
+      <!-- <mat-option [value]="option.key">{{option.title}}</mat-option> -->
+      <mat-option [value]="option.id">{{option.title}}</mat-option>
     </ng-container>
   </mat-select>
 </mat-form-field>

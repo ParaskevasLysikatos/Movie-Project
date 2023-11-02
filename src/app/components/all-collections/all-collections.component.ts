@@ -6,11 +6,13 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-all-collections',
   templateUrl: './all-collections.component.html',
-  styleUrls: ['./all-collections.component.scss']
+  styleUrls: ['./all-collections.component.scss'],
 })
 export class AllCollectionsComponent implements OnInit {
-
-  constructor(private collectionSrv:MovieColectionService,private router:Router) { }
+  constructor(
+    private collectionSrv: MovieColectionService,
+    private router: Router
+  ) {}
 
   collections!: any[];
   cleanCollections!: any[];
@@ -19,21 +21,24 @@ export class AllCollectionsComponent implements OnInit {
     this.initialize();
   }
 
-  initialize(){
-    this.collections = JSON.parse(this.collectionSrv.getAllMovieCollections());
-    console.log(this.collections);
-    this.cleanCollections=this.collections.map((collection) => JSON.parse(collection.value));
-     console.log(this.cleanCollections);
+  initialize() {
+    // this.collections = JSON.parse(this.collectionSrv.getAllMovieCollections());
+    this.collectionSrv
+      .getAllMovieCollections()
+      .subscribe((collections) => (this.collections = collections.data));
+   // console.log(this.collections);
+    // this.cleanCollections = this.collections.map((collection) =>
+    //   JSON.parse(collection.value)
+    // );
+    // console.log(this.cleanCollections);
   }
 
-  SeeCollection(key:string){
+  SeeCollection(key: string) {
     this.router.navigateByUrl('/view-collection/' + key);
   }
 
-
-  deleteCollection(key:string){
+  deleteCollection(key: string) {
     this.collectionSrv.deleteMovieCollection(key);
     this.initialize();
   }
-
 }

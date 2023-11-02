@@ -20,10 +20,11 @@ export class SelectCollectionComponent implements OnInit {
   @ViewChild('select') Select!:MatSelect;
 
   ngOnInit(): void {
-     this.collections = JSON.parse(this.collectionSrv.getAllMovieCollections());
-    console.log(this.collections);
-    this.cleanCollections=this.collections.map((collection) => JSON.parse(collection.value));
-     console.log(this.cleanCollections);
+   //  this.collections = JSON.parse(this.collectionSrv.getAllMovieCollections());
+   // console.log(this.collections);
+    this.collectionSrv.getAllMovieCollections().subscribe(collections => this.collections=collections.data);
+    // this.cleanCollections=this.collections.map((collection) => JSON.parse(collection.value));
+    //  console.log(this.cleanCollections);
   }
 
 

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Movie, MovieCollection } from './../interfaces/movies.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -32,14 +33,14 @@ export class MovieColectionService {
     return String(key);
   }
 
- saveMovieCollection(key : string, item :any) { // key will be a number that increments
-     localStorage.setItem(key, JSON.stringify(item));
- }
+//  saveMovieCollection(key : string, item :any) { // key will be a number that increments
+//      localStorage.setItem(key, JSON.stringify(item));
+//  }
 
-//  createEmployee(employee: Employee): Observable<Employee> {
-//   return this.http
-//     .post<Employee>(this.apiURL, employee, this.httpOptions);
-// }
+saveMovieCollection(mc: any ): Observable<any> {
+  return this.http
+    .post<MovieCollection>(this.url + 'saveCollection', mc, this.httpOptions);
+}
 
 
 
@@ -58,18 +59,25 @@ export class MovieColectionService {
    localStorage.removeItem(key)
  }
 
- getAllMovieCollections() : string {
-    const collectionList = new Array<any>();
-   for (let i = 0; i < localStorage.length; i++) {
-     const key = localStorage.key(i) ?? '';
-     const value = localStorage.getItem(key);
-     if (key && value) {
-       const element = { key, value };
-       collectionList.push(element);
-     }
-   }
-   return JSON.stringify(collectionList);
- }
+//  getAllMovieCollections() : string {
+//     const collectionList = new Array<any>();
+//    for (let i = 0; i < localStorage.length; i++) {
+//      const key = localStorage.key(i) ?? '';
+//      const value = localStorage.getItem(key);
+//      if (key && value) {
+//        const element = { key, value };
+//        collectionList.push(element);
+//      }
+//    }
+//    return JSON.stringify(collectionList);
+//  }
+
+
+getAllMovieCollections(): Observable<any> {
+  return this.http
+    .get<MovieCollection[]>(this.url + 'getAll' , this.httpOptions);
+}
+
 
 
  // movie list operations
@@ -77,7 +85,7 @@ export class MovieColectionService {
  addMovieListCollection(collection_key : string,movie:Movie){
    let collection = JSON.parse(this.getOneMovieCollection(collection_key));
    collection?.movies.push(movie);
-   this.saveMovieCollection(collection_key, collection);
+  // this.saveMovieCollection(collection_key, collection);
  }
 
  removeMovieListCollection(collection_key : string,movie:Movie){
@@ -85,7 +93,7 @@ export class MovieColectionService {
   collection=collection?.movies.filter((object:Movie) => {
       return object.id !== movie.id;
     });
-    this.saveMovieCollection(collection_key, collection);
+   // this.saveMovieCollection(collection_key, collection);
  }
 
 

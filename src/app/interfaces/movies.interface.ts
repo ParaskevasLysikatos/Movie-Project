@@ -20,8 +20,9 @@ export interface Guest {
 }
 
 export interface MovieCollection {
-  key: string;
+  id:string;
+ // key?: string;
   title: string;
-  description: string;
+  description: string ;
   movies: Movie[];
 }

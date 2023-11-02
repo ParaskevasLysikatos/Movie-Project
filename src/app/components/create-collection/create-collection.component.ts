@@ -20,17 +20,25 @@ export class CreateCollectionComponent implements OnInit {
     'title':new FormControl('',[Validators.required]),
     'description':new FormControl('',[Validators.required]),
     'movies':new FormControl([]),
-     'key':new FormControl(''),
+    'id':new FormControl('')
+   // 'key':new FormControl('')
   });
 
   onSubmit()
   {
     this.submitted = true;
       console.log(this.collectionForm.value,'collectionform#');
-    let key = this.collectionSrv.nextKey();
-    this.collectionForm.controls.key.patchValue(key);
-    this.collectionSrv.saveMovieCollection(key, this.collectionForm.value);
-    setTimeout(() => this.submitted = false, 3000);
+  //  let key = this.collectionSrv.nextKey();
+   // this.collectionForm.controls.key.patchValue(key);
+   // this.collectionSrv.saveMovieCollection(key, this.collectionForm.value);
+   this.collectionSrv.saveMovieCollection(this.collectionForm.value).subscribe((data)=>{
+    this.submitted = false;
+    this.collectionForm.reset();
+    alert(data.message);
+   }, error=>alert(error.message)
+
+   );
+    // setTimeout(() => this.submitted = false, 3000);
   }
 
     get collectionFormControl() {
