@@ -1,14 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Movie, MovieCollection } from './../interfaces/movies.interface';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovieColectionService {
 
-  //readonly urlCompany="http://localhost:8080/api/companies";
-  //readonly urlCompany = `${environment.domain + '/api/companies'}`;
+  readonly url = `${environment.domain}`;
+
+   // Http Options
+   httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }),
+  };
 
   constructor(private http: HttpClient) { }
 
@@ -29,9 +36,22 @@ export class MovieColectionService {
      localStorage.setItem(key, JSON.stringify(item));
  }
 
+//  createEmployee(employee: Employee): Observable<Employee> {
+//   return this.http
+//     .post<Employee>(this.apiURL, employee, this.httpOptions);
+// }
+
+
+
+
  getOneMovieCollection(key : string) : string {
    return localStorage.getItem(key) ?? '';
  }
+
+//  getOneEmployee(id: number): Observable<Employee> {
+//   return this.http
+//     .get<Employee>(this.apiURL + '/' + id, this.httpOptions);
+// }
 
 
  deleteMovieCollection(key : string) {

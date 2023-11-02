@@ -1,4 +1,5 @@
 # NovMovies
+the description details see the file Angular_project.pdf
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.4.
 
