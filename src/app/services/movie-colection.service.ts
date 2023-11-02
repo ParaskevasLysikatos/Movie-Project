@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Movie, MovieCollection } from './../interfaces/movies.interface';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovieColectionService {
 
-  constructor() { }
+  //readonly urlCompany="http://localhost:8080/api/companies";
+  //readonly urlCompany = `${environment.domain + '/api/companies'}`;
+
+  constructor(private http: HttpClient) { }
 
   // title of movie collection will be unique
 
