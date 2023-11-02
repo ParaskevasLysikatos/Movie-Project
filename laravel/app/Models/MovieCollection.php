@@ -13,6 +13,8 @@ class MovieCollection extends Model
 
     protected $fillable = ['title', 'description'];
 
+    public $timestamps = false;
+
      /**
      * The movies that belong to the collection.
      */

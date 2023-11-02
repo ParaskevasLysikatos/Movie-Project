@@ -10,6 +10,8 @@ class Movie extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = ['id','title','poster_path','vote_average','overview','budget','release_date','revenue','vote_count'];
 
    /**

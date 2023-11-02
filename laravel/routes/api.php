@@ -22,7 +22,7 @@ http://localhost/Movie-Project/laravel/public/api/
 //     return $request->user();
 // });
 
-Route::post('/saveMovie', [MovieController::class, 'save']);
+// Route::post('/saveMovie', [MovieController::class, 'save']);
 
 Route::post('/saveCollection', [CollectionController::class, 'save']);
 
