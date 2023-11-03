@@ -61,8 +61,13 @@ export class HomeComponent implements OnInit {
   openAddDialog(movie:Movie) {
    this.myTempDialog = this.dialog.open(SelectCollectionComponent, { data: movie, width: '450px', height: '450px', autoFocus: true});
     this.myTempDialog.afterClosed().subscribe((res:any) => {
-      this.collectionSrv.addMovieListCollection(res.key, res.movie);
-      console.log('The Info dialog was closed.');
+      // this.collectionSrv.addMovieListCollection(res.key, res.movie);
+      // console.log('The Info dialog was closed.');
+      let obj={'collection_id':res.key, 'movie': res.movie};
+        this.collectionSrv.addMovieListCollection(obj).subscribe((data:any) => {
+          console.log('The Info dialog was closed.');
+          alert(data.message);
+        },err=>alert(err.error.message));
     });
   }
 

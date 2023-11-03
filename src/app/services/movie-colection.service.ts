@@ -43,21 +43,24 @@ saveMovieCollection(mc: any ): Observable<any> {
 }
 
 
+//  getOneMovieCollection(key : string) : string {
+//    return localStorage.getItem(key) ?? '';
+//  }
+
+ getOneMovieCollection(id: number): Observable<any> {
+  return this.http
+    .get<any>(this.url + 'getOne/' + id, this.httpOptions);
+}
 
 
- getOneMovieCollection(key : string) : string {
-   return localStorage.getItem(key) ?? '';
- }
+//  deleteMovieCollection(key : string) {
+//    localStorage.removeItem(key)
+//  }
 
-//  getOneEmployee(id: number): Observable<Employee> {
-//   return this.http
-//     .get<Employee>(this.apiURL + '/' + id, this.httpOptions);
-// }
-
-
- deleteMovieCollection(key : string) {
-   localStorage.removeItem(key)
- }
+ deleteMovieCollection(id: number): Observable<any> {
+  return this.http
+    .delete<any>(this.url + 'delete/' + id, this.httpOptions);
+}
 
 //  getAllMovieCollections() : string {
 //     const collectionList = new Array<any>();
@@ -79,22 +82,35 @@ getAllMovieCollections(): Observable<any> {
 }
 
 
-
  // movie list operations
 
- addMovieListCollection(collection_key : string,movie:Movie){
-   let collection = JSON.parse(this.getOneMovieCollection(collection_key));
-   collection?.movies.push(movie);
-  // this.saveMovieCollection(collection_key, collection);
- }
+//  addMovieListCollection(collection_key : string,movie:Movie){
+//     let collection = JSON.parse(this.getOneMovieCollection(collection_key));
+//     collection?.movies.push(movie);
+//    this.saveMovieCollection(collection_key, collection);
+//  }
 
- removeMovieListCollection(collection_key : string,movie:Movie){
-   let collection = JSON.parse(this.getOneMovieCollection(collection_key));
-  collection=collection?.movies.filter((object:Movie) => {
-      return object.id !== movie.id;
-    });
-   // this.saveMovieCollection(collection_key, collection);
- }
+//{'collection_id': '','movie':''};
+addMovieListCollection(obj:any): Observable<any> {
+  return this.http
+    .post<any>(this.url + 'addMovie', obj , this.httpOptions);
+}
+
+
+
+//  removeMovieListCollection(collection_key : string,movie:Movie){
+//    let collection = JSON.parse(this.getOneMovieCollection(collection_key));
+//   collection=collection?.movies.filter((object:Movie) => {
+//       return object.id !== movie.id;
+//     });
+//    this.saveMovieCollection(collection_key, collection);
+//  }
+
+//{'collection_id': '','movie':''};
+removeMovieListCollection(obj:any): Observable<any> {
+  return this.http
+    .post<any>(this.url + 'removeMovie', obj , this.httpOptions);
+}
 
 
 }

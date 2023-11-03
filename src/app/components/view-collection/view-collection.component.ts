@@ -27,9 +27,15 @@ export class ViewCollectionComponent implements OnInit {
   savedMovies!:Movie[];
 
   initialize(){
-    this.collectionResult = JSON.parse(this.collectionSrv.getOneMovieCollection(this.route.snapshot.paramMap.get('id') ?? ''));
+    let params=this.route.snapshot.paramMap.get('id');
+  //  this.collectionResult = JSON.parse(this.collectionSrv.getOneMovieCollection(this.route.snapshot.paramMap.get('id') ?? ''));
+  this.collectionSrv.getOneMovieCollection(params == null ? 0 : +params).subscribe((movieCollection)=>{
+    this.collectionResult=movieCollection.data;
     console.log(this.collectionResult);
     this.savedMovies=this.collectionResult.movies;
+  });
+    // console.log(this.collectionResult);
+    // this.savedMovies=this.collectionResult.movies;
   }
 
 
@@ -42,8 +48,11 @@ export class ViewCollectionComponent implements OnInit {
  }
 
  removeMovie(movie:Movie){
-   this.collectionSrv.removeMovieListCollection(this.route.snapshot.paramMap.get('id') ?? '', movie);
-   this.initialize();
- }
+   //this.collectionSrv.removeMovieListCollection(this.route.snapshot.paramMap.get('id') ?? '', movie);
 
+   let params=this.route.snapshot.paramMap.get('id');
+   let obj={'collection_id': params== null ? 0 : +params, 'movie': movie};
+   this.collectionSrv.removeMovieListCollection(obj).subscribe((data)=>{this.initialize();alert(data.message);},err=>alert(err.error.message));
+   //this.initialize();
+ }
 }

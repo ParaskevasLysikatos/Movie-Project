@@ -38,7 +38,11 @@ export class AllCollectionsComponent implements OnInit {
   }
 
   deleteCollection(key: string) {
-    this.collectionSrv.deleteMovieCollection(key);
+   // this.collectionSrv.deleteMovieCollection(key);
+   this.collectionSrv.deleteMovieCollection(+key).subscribe((collections) =>{
     this.initialize();
+    alert(collections.message);
+   }, err => alert(err.error.message));
+   // this.initialize();
   }
 }
