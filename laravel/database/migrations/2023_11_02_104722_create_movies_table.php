@@ -18,11 +18,11 @@ return new class extends Migration
             $table->string('poster_path');
             $table->float('vote_average', 8, 2);
 
-            $table->string('overview');
-            $table->string('budget');
+            $table->text('overview');
+            $table->string('budget')->nullable();
 
             $table->string('release_date');
-            $table->string('revenue');
+            $table->string('revenue')->nullable();
 
             $table->integer('vote_count');
         });

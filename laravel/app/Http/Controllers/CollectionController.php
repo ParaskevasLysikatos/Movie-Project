@@ -13,6 +13,7 @@ class CollectionController extends Controller
 {
     use HttpResponses;
 
+
     public function save(Request $request){
 
         $request->validate([
@@ -28,6 +29,7 @@ class CollectionController extends Controller
 
           return response()->json(['message' => 'Collection saved successfully.', 'data' => $collection]);
       }
+
 
       public function getOne(Request $request,string $id){
 
@@ -55,15 +57,19 @@ class CollectionController extends Controller
 
       }
 
+
       public function getAll(Request $request){
         return CollectionResource::collection(MovieCollection::all());
       }
 
+
       public function addMovie(Request $request){
         $request->validate([
           'collection_id' =>'required',
-          'movie' =>'required|json',
+          'movie' =>'required',
         ]);
+
+        // return response()->json(['message'=>'ok']);
 
 
         $check=DB::table('movie_pivot_collections')->
@@ -74,15 +80,42 @@ class CollectionController extends Controller
             return response()->json(['message' => 'Movie exists in the collection.'], 404);
         }
 
-        $movie=saveMovie($request->input('movie'));
+        //save movie
+        $request->validate([
+            'movie.id' =>'required|integer',
+            'movie.title' => 'required',
+            'movie.poster_path' =>'required',
+            'movie.vote_average' =>'required',
+            'movie.overview' =>'required',
+          //  'budget' =>'required',
+            'movie.release_date' =>'required',
+           // 'revenue' =>'required',
+            'movie.vote_count' =>'required',
+          ]);
 
-        if($movie!='ok'){
-            return response()->json(['message' => 'Movie failed to be added', 'data' => ''],404) ;
-        }
+
+          if(Movie::where('id', $request->input('movie.id'))->doesntExist()){
+              $movie=Movie::create([
+                  'id' => $request->input('movie.id'),
+                  'title' => $request->input('movie.title'),
+                  'poster_path' => $request->input('movie.poster_path'),
+
+                  'vote_average' => $request->input('movie.vote_average'),
+                  'overview' => $request->input('movie.overview'),
+
+                  'budget' => $request->input('movie.budget') ?? null,
+                  'release_date' => $request->input('movie.release_date'),
+
+                  'revenue' => $request->input('movie.revenue') ?? null,
+                  'vote_count' => $request->input('movie.vote_count'),
+              ]);
+          }
+
+         //end---save movie
 
         DB::table('movie_pivot_collections')->insert([
             'collection_id' => $request->input('collection_id'),
-          'movie_id' => $request->input('movie_id')
+          'movie_id' => $request->input('movie.id')
         ]);
 
         return response()->json(['message' => 'Movie added to collection successfully.', 'data' => '']) ;
@@ -92,12 +125,12 @@ class CollectionController extends Controller
       public function removeMovie(Request $request){
         $request->validate([
             'collection_id' =>'required',
-            'movie_id' =>'required',
+            'movie' =>'required',
           ]);
 
           $check=DB::table('movie_pivot_collections')->
           where('collection_id', $request->input('collection_id'))->
-          where('movie_id', $request->input('movie_id'))->exists();
+          where('movie_id', $request->input('movie.id'))->exists();
 
           if(!$check){
             return response()->json(['message' => 'Movie does not exist in the collection.'], 404);
@@ -105,52 +138,10 @@ class CollectionController extends Controller
 
         DB::table('movie_pivot_collections')
         ->where('collection_id', $request->input('collection_id'))
-        ->where('movie_id', $request->input('movie_id'))
+        ->where('movie_id', $request->input('movie.id'))
         ->delete();
 
         return response()->json(['message' => 'Movie removed from collection successfully.', 'data' => '']);
-      }
-
-
-
-      public function saveMovie(Request $request){
-
-        $request->validate([
-            'id' =>'required|integer',
-            'title' => 'required',
-            'poster_path' =>'required',
-            'vote_average' =>'required',
-            'overview' =>'required',
-            'budget' =>'required',
-            'release_date' =>'required',
-            'revenue' =>'required',
-            'vote_count' =>'required',
-          ]);
-
-
-
-          if(Movie::where('id', $request->input('id'))->doesntExist()){
-              $movie=Movie::create([
-                  'id' => $request->input('id'),
-                  'title' => $request->input('title'),
-                  'poster_path' => $request->input('poster_path'),
-
-                  'vote_average' => $request->input('vote_average'),
-                  'overview' => $request->input('overview'),
-
-                  'budget' => $request->input('budget'),
-                  'release_date' => $request->input('release_date'),
-
-                  'revenue' => $request->input('revenue'),
-                  'vote_count' => $request->input('vote_count'),
-              ]);
-
-              return 'ok';
-          }
-
-          return 'error';
-
-        //  return response()->json(['message' => 'Movie saved successfully.', 'data' => $movie]);
       }
 
 }
